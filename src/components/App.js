@@ -24,6 +24,9 @@ const App = () => {
             <Link to="/login">Login</Link>
           </li>
         </ul>
+        {isAuth && (
+          <button onClick={() => setIsAuth(false)}>Log Out</button>
+        )}
 
         <Routes>
           <Route
