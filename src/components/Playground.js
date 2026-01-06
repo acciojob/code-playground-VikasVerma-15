@@ -1,7 +1,9 @@
-import React from "react";
 
-const Playground = () => {
-  return <h2 data-testid="playground-title">Hi Welcome to Code PlayGround</h2>;
+import React from "react";
+import { Navigate } from "react-router-dom";
+
+const PrivateRoute = ({ isAuthenticated, children }) => {
+  return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
-export default Playground;
+export default PrivateRoute;

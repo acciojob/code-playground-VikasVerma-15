@@ -1,7 +1,7 @@
+
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
-import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
@@ -10,35 +10,45 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="main-container">
-        <p data-testid="auth-status">
+        {/* Status message */}
+        <p>
           {isAuthenticated
             ? "Logged in, Now you can enter Playground"
             : "You are not authenticated, Please login first"}
         </p>
 
+        {/* Conditional links */}
         <ul>
-          <li>
-            <Link to="/playground" data-testid="playground-link">PlayGround</Link>
-          </li>
-          <li>
-            <Link to="/login" data-testid="login-link">Login</Link>
-          </li>
+          {isAuthenticated && (
+            <li>
+              <Link to="/playground">PlayGround</Link>
+            </li>
+          )}
+          {!isAuthenticated && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
 
+        {/* Conditional buttons */}
         {isAuthenticated && (
           <>
-            <button data-testid="playground-btn">Hi Welcome to Code PlayGround</button>
-            <button data-testid="logout-btn" onClick={() => setIsAuthenticated(false)}>Log Out</button>
+            <button>Hi Welcome to Code PlayGround</button>
+            <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
           </>
         )}
 
         <Routes>
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route
+            path="/login"
+            element={<Login setIsAuthenticated={setIsAuthenticated} />}
+          />
           <Route
             path="/playground"
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
-                <Playground />
+                <div />
               </PrivateRoute>
             }
           />
