@@ -1,10 +1,9 @@
-
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
-import './../styles/App.css';
+
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
 
@@ -13,7 +12,7 @@ const App = () => {
       <div className="main-container">
         <h3>
           {isAuth
-            ? "You are authenticated"
+            ? "Logged in, Now you can enter Playground"
             : "You are not authenticated, Please login first"}
         </h3>
 
@@ -39,7 +38,6 @@ const App = () => {
             path="/login"
             element={<Login setIsAuth={setIsAuth} />}
           />
-          <Route path="*" element={<h3>Page not Found</h3>} />
         </Routes>
       </div>
     </BrowserRouter>
