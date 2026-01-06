@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
+import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
@@ -9,7 +10,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="main-container">
-        <p>
+        <p data-testid="auth-status">
           {isAuthenticated
             ? "Logged in, Now you can enter Playground"
             : "You are not authenticated, Please login first"}
@@ -17,18 +18,17 @@ const App = () => {
 
         <ul>
           <li>
-            <Link to="/playground">PlayGround</Link>
+            <Link to="/playground" data-testid="playground-link">PlayGround</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/login" data-testid="login-link">Login</Link>
           </li>
         </ul>
 
-        {/* Buttons rendered only when authenticated */}
         {isAuthenticated && (
           <>
-            <button>Hi Welcome to Code PlayGround</button>
-            <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
+            <button data-testid="playground-btn">Hi Welcome to Code PlayGround</button>
+            <button data-testid="logout-btn" onClick={() => setIsAuthenticated(false)}>Log Out</button>
           </>
         )}
 
@@ -38,7 +38,7 @@ const App = () => {
             path="/playground"
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
-                <div />
+                <Playground />
               </PrivateRoute>
             }
           />
