@@ -14,7 +14,7 @@ const AppContent = () => {
           : "You are not authenticated, Please login first"}
       </p>
 
-      {/* REQUIRED nav structure */}
+      {/* Navigation (links are OK, Cypress clicks buttons) */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -24,15 +24,21 @@ const AppContent = () => {
         </li>
       </ul>
 
-      {/* 🔴 THIS IS THE MOST IMPORTANT PART */}
+      {/* ✅ ONLY show these buttons when authenticated */}
       {isAuthenticated && (
         <>
           <button>Hi Welcome to Code PlayGround</button>
-          <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
+          <button onClick={() => setIsAuthenticated(false)}>
+            Log Out
+          </button>
         </>
       )}
 
       <Routes>
+        <Route
+          path="/login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+        />
         <Route
           path="/playground"
           element={
@@ -40,10 +46,6 @@ const AppContent = () => {
               <div />
             </PrivateRoute>
           }
-        />
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
       </Routes>
     </div>
