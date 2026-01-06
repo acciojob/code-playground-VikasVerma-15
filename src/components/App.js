@@ -1,27 +1,10 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  Navigate,
-  useNavigate
-} from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 
-const PlaygroundButton = () => {
-  return (
-    <button>
-      Hi Welcome to Code PlayGround
-    </button>
-  );
-};
-
 const AppContent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <div className="main-container">
@@ -30,6 +13,8 @@ const AppContent = () => {
           ? "Logged in, Now you can enter Playground"
           : "You are not authenticated, Please login first"}
       </p>
+
+      {/* REQUIRED nav structure */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -39,10 +24,12 @@ const AppContent = () => {
         </li>
       </ul>
 
+      {/* 🔴 THIS IS THE MOST IMPORTANT PART */}
       {isAuthenticated && (
-        <button onClick={() => setIsAuthenticated(false)}>
-          Log Out
-        </button>
+        <>
+          <button>Hi Welcome to Code PlayGround</button>
+          <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
+        </>
       )}
 
       <Routes>
@@ -50,7 +37,7 @@ const AppContent = () => {
           path="/playground"
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              <PlaygroundButton />
+              <div />
             </PrivateRoute>
           }
         />
@@ -58,7 +45,6 @@ const AppContent = () => {
           path="/login"
           element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
-        <Route path="*" element={<div>Page not Found</div>} />
       </Routes>
     </div>
   );
