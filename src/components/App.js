@@ -1,49 +1,51 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Navigate
+} from "react-router-dom";
+
 import Login from "./Login";
 import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
 
 const AppContent = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <div className="main-container">
-      <h3>
-        {isAuth
+      <p>
+        {isAuthenticated
           ? "Logged in, Now you can enter Playground"
           : "You are not authenticated, Please login first"}
-      </h3>
+      </p>
 
+      {/* ✅ MUST MATCH GIF */}
       <ul>
+        <li>
+          <Link to="/playground">PlayGround</Link>
+        </li>
         <li>
           <Link to="/login">Login</Link>
         </li>
       </ul>
 
-      {isAuth && (
-        <button onClick={() => navigate("/playground")}>
-          Hi Welcome to Code PlayGround
-        </button>
-      )}
-      {isAuth && (
-        <button onClick={() => setIsAuth(false)}>Log Out</button>
-      )}
-
       <Routes>
         <Route
           path="/playground"
           element={
-            <PrivateRoute isAuth={isAuth}>
+            <PrivateRoute isAuthenticated={isAuthenticated}>
               <Playground />
             </PrivateRoute>
           }
         />
         <Route
           path="/login"
-          element={<Login setIsAuth={setIsAuth} />}
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
         />
+        <Route path="*" element={<div>Page not Found</div>} />
       </Routes>
     </div>
   );

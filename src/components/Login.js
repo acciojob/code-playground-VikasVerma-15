@@ -1,10 +1,12 @@
 import React from "react";
 
-const Login = ({ setIsAuth }) => {
+const Login = ({ setIsAuthenticated }) => {
   return (
     <div>
       <h2>Login Page</h2>
-      <button onClick={() => setIsAuth(true)}>Log In</button>
+      <button onClick={() => setIsAuthenticated(true)}>
+        Log In
+      </button>
     </div>
   );
 };
