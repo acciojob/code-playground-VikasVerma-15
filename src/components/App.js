@@ -4,15 +4,24 @@ import {
   Routes,
   Route,
   Link,
-  Navigate
+  Navigate,
+  useNavigate
 } from "react-router-dom";
 
 import Login from "./Login";
-import Playground from "./Playground";
 import PrivateRoute from "./PrivateRoute";
+
+const PlaygroundButton = () => {
+  return (
+    <button>
+      Hi Welcome to Code PlayGround
+    </button>
+  );
+};
 
 const AppContent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="main-container">
@@ -21,8 +30,6 @@ const AppContent = () => {
           ? "Logged in, Now you can enter Playground"
           : "You are not authenticated, Please login first"}
       </p>
-
-      {/* NAVIGATION — DO NOT CHANGE STRUCTURE */}
       <ul>
         <li>
           <Link to="/playground">PlayGround</Link>
@@ -32,7 +39,6 @@ const AppContent = () => {
         </li>
       </ul>
 
-      {/* ✅ REQUIRED BY TEST */}
       {isAuthenticated && (
         <button onClick={() => setIsAuthenticated(false)}>
           Log Out
@@ -44,7 +50,7 @@ const AppContent = () => {
           path="/playground"
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              <Playground />
+              <PlaygroundButton />
             </PrivateRoute>
           }
         />
