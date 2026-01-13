@@ -9,29 +9,34 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="main-container">
-        {/* Status message */}
         <p>
           {isAuthenticated
             ? "Logged in, Now you can enter Playground"
             : "You are not authenticated, Please login first"}
         </p>
 
-        {/* IMPORTANT: always render both links */}
+        {/* ✅ ONLY ONE LINK AT A TIME */}
         <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/playground">PlayGround</Link>
-          </li>
+          {!isAuthenticated && (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
+
+          {isAuthenticated && (
+            <li>
+              <Link to="/playground">PlayGround</Link>
+            </li>
+          )}
         </ul>
 
-        {/* Button Cypress is checking */}
+        {/* Required by Cypress */}
         {isAuthenticated && (
-          <>
-            <button>Hi Welcome to Code PlayGround</button>
-            <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
-          </>
+          <button>Hi Welcome to Code PlayGround</button>
+        )}
+
+        {isAuthenticated && (
+          <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
         )}
 
         <Routes>
