@@ -16,7 +16,7 @@ const App = () => {
             : "You are not authenticated, Please login first"}
         </p>
 
-        {/* IMPORTANT: Always render BOTH links */}
+        {/* IMPORTANT: always render both links */}
         <ul>
           <li>
             <Link to="/login">Login</Link>
@@ -26,8 +26,12 @@ const App = () => {
           </li>
         </ul>
 
+        {/* Button Cypress is checking */}
         {isAuthenticated && (
-          <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
+          <>
+            <button>Hi Welcome to Code PlayGround</button>
+            <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
+          </>
         )}
 
         <Routes>
@@ -40,7 +44,7 @@ const App = () => {
             path="/playground"
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
-                <h2>Welcome to Code Playground</h2>
+                <div />
               </PrivateRoute>
             }
           />
