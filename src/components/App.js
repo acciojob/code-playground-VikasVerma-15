@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
@@ -17,26 +16,18 @@ const App = () => {
             : "You are not authenticated, Please login first"}
         </p>
 
-        {/* Conditional links */}
+        {/* IMPORTANT: Always render BOTH links */}
         <ul>
-          {isAuthenticated && (
-            <li>
-              <Link to="/playground">PlayGround</Link>
-            </li>
-          )}
-          {!isAuthenticated && (
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          )}
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/playground">PlayGround</Link>
+          </li>
         </ul>
 
-        {/* Conditional buttons */}
         {isAuthenticated && (
-          <>
-            <button>Hi Welcome to Code PlayGround</button>
-            <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
-          </>
+          <button onClick={() => setIsAuthenticated(false)}>Log Out</button>
         )}
 
         <Routes>
@@ -44,11 +35,12 @@ const App = () => {
             path="/login"
             element={<Login setIsAuthenticated={setIsAuthenticated} />}
           />
+
           <Route
             path="/playground"
             element={
               <PrivateRoute isAuthenticated={isAuthenticated}>
-                <div />
+                <h2>Welcome to Code Playground</h2>
               </PrivateRoute>
             }
           />
