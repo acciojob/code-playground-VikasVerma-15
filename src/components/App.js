@@ -25,8 +25,19 @@ const App = () => {
 
           {isAuthenticated && (
             <li>
-              <Link to="/playground">PlayGround</Link>
-            </li>
+  <Link
+    to="/playground"
+    onClick={(e) => {
+      if (!isAuthenticated) e.preventDefault();
+    }}
+    style={{
+      pointerEvents: isAuthenticated ? "auto" : "none",
+      color: isAuthenticated ? "blue" : "gray",
+    }}
+  >
+    PlayGround
+  </Link>
+</li>
           )}
         </ul>
 
